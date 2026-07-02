@@ -46,9 +46,24 @@
       <label for="buurt">Buurt</label>
       <select id="buurt"><option value="alles">Alle buurten</option></select>
     </div>
+    <div class="control prijs">
+      <label>Prijs per maand</label>
+      <div class="prijs-velden">
+        <input type="number" id="prijs-min" placeholder="min" min="0" step="50" inputmode="numeric">
+        <span aria-hidden="true">–</span>
+        <input type="number" id="prijs-max" placeholder="max" min="0" step="50" inputmode="numeric">
+      </div>
+      <div class="prijs-snel" id="prijs-snel">
+        <button type="button" data-max="1200">≤ €1200</button>
+        <button type="button" data-max="1400">≤ €1400</button>
+        <button type="button" data-max="1600">≤ €1600</button>
+        <button type="button" data-wis="1">wissen</button>
+      </div>
+    </div>
     <div class="control checks">
       <label><input type="checkbox" id="f-buiten"> Met buitenruimte</label>
       <label><input type="checkbox" id="f-nieuw"> Alleen nieuw</label>
+      <label><input type="checkbox" id="f-zelfstandig" checked> Verberg gereguleerd/sociale huur</label>
       <label><input type="checkbox" id="f-bewaard"> Alleen bewaard</label>
       <label><input type="checkbox" id="f-verborgen"> Toon verborgen</label>
     </div>

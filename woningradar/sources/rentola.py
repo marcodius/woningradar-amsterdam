@@ -48,11 +48,19 @@ class RentolaSource(BaseSource):
         resultaat: List[Listing] = []
         gezien: set[str] = set()
         max_paginas = self.bron_conf.get("max_paginas", 2)
+        pmax = self.prijs_max()
         for stad in self._steden():
             for pagina in range(1, max_paginas + 1):
-                url = f"{self.basis_url}/huren/{stad}"
+                # Prijsband (rent_max) concentreert het paginabudget op
+                # betaalbare woningen; scoring vangt eventuele uitschieters af.
+                params = []
+                if pmax:
+                    params.append(f"rent_max={pmax}")
                 if pagina > 1:
-                    url += f"?page={pagina}"
+                    params.append(f"page={pagina}")
+                url = f"{self.basis_url}/huren/{stad}"
+                if params:
+                    url += "?" + "&".join(params)
                 try:
                     resp = self.get(url)
                 except requests.HTTPError as exc:

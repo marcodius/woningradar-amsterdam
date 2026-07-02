@@ -145,8 +145,30 @@ function vulBuurten() {
 function koppelControls() {
   ["sorteer", "type", "buurt"].forEach((id) =>
     document.getElementById(id).addEventListener("change", render));
-  ["f-buiten", "f-nieuw", "f-bewaard", "f-verborgen"].forEach((id) =>
+  ["f-buiten", "f-nieuw", "f-zelfstandig", "f-bewaard", "f-verborgen"].forEach((id) =>
     document.getElementById(id).addEventListener("change", render));
+  ["prijs-min", "prijs-max"].forEach((id) =>
+    document.getElementById(id).addEventListener("input", render));
+
+  // Snelknoppen: zet een maximumprijs of wis het prijsfilter.
+  document.getElementById("prijs-snel").addEventListener("click", (e) => {
+    const btn = e.target.closest("button");
+    if (!btn) return;
+    if (btn.dataset.wis) {
+      document.getElementById("prijs-min").value = "";
+      document.getElementById("prijs-max").value = "";
+    } else if (btn.dataset.max) {
+      document.getElementById("prijs-max").value = btn.dataset.max;
+    }
+    markeerSnelknoppen();
+    render();
+  });
+}
+
+function markeerSnelknoppen() {
+  const max = document.getElementById("prijs-max").value;
+  document.querySelectorAll("#prijs-snel button[data-max]").forEach((b) =>
+    b.classList.toggle("actief", b.dataset.max === max));
 }
 
 function render() {
@@ -155,8 +177,11 @@ function render() {
   const buurt = document.getElementById("buurt").value;
   const alleenBuiten = document.getElementById("f-buiten").checked;
   const alleenNieuw = document.getElementById("f-nieuw").checked;
+  const verbergGereguleerd = document.getElementById("f-zelfstandig").checked;
   const alleenBewaard = document.getElementById("f-bewaard").checked;
   const toonVerborgen = document.getElementById("f-verborgen").checked;
+  const prijsMin = parseInt(document.getElementById("prijs-min").value, 10);
+  const prijsMax = parseInt(document.getElementById("prijs-max").value, 10);
 
   let items = DATA.woningen.filter((w) => {
     if (!toonVerborgen && verborgen.has(w.id)) return false;
@@ -164,7 +189,11 @@ function render() {
     if (buurt !== "alles" && w.buurt !== buurt) return false;
     if (alleenBuiten && !w.buitenruimte) return false;
     if (alleenNieuw && !isNieuw(w)) return false;
+    if (verbergGereguleerd && w.mogelijk_gereguleerd) return false;
     if (alleenBewaard && !bewaard.has(w.id)) return false;
+    // Prijsfilter: woningen zonder prijs vallen weg zodra er een grens staat.
+    if (!Number.isNaN(prijsMin)) { if (w.prijs == null || w.prijs < prijsMin) return false; }
+    if (!Number.isNaN(prijsMax)) { if (w.prijs == null || w.prijs > prijsMax) return false; }
     return true;
   });
 
@@ -242,6 +271,9 @@ function kaartHtml(w) {
   const waar = (w.waarschuwingen || []).map((r) => `<li>${esc(r)}</li>`).join("");
   const afwijs = (w.afwijs_redenen || []).map((r) => `<li>${esc(r)}</li>`).join("");
   const nieuwTag = isNieuw(w) ? '<span class="pill-tag">nieuw</span>' : "";
+  const gereguleerdTag = w.mogelijk_gereguleerd
+    ? '<span class="pill-tag gereguleerd" title="Lage prijs per m²: waarschijnlijk sociale/gereguleerde huur met inschrijving en inkomenseis">gereguleerd?</span>'
+    : "";
   const ookOp = (w.ook_op && w.ook_op.length) ? `<span class="pill-tag">ook op: ${w.ook_op.join(", ")}</span>` : "";
 
   return `
@@ -250,7 +282,7 @@ function kaartHtml(w) {
     ${fotoHtml(w)}
     <div class="body">
       <h3><a href="${esc(w.url)}" target="_blank" rel="noopener">${esc(w.titel)}</a>
-        <span class="pill-tag ${w.type}">${w.type}</span>${nieuwTag}${ookOp}
+        <span class="pill-tag ${w.type}">${w.type}</span>${nieuwTag}${gereguleerdTag}${ookOp}
       </h3>
       <div class="prijs">${prijsRegel}</div>
       <div class="locatie">${esc(w.buurt || "")}${w.plaats ? ", " + esc(w.plaats) : ""} · bron: ${esc(w.bron)}</div>

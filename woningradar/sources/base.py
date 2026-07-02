@@ -80,6 +80,21 @@ class BaseSource:
         resp.raise_for_status()
         return resp
 
+    # ---- Hulp voor bron-URL's ----
+
+    def prijs_max(self) -> Optional[int]:
+        """Bovengrens huurprijs voor bron-URL's met een prijsfilter.
+
+        Standaard de budgetgrens (`criteria.huur_max_kaal`), zodat we het
+        paginabudget besteden aan betaalbare woningen in plaats van aan dure.
+        Per bron te overschrijven met `prijs_max` in de config; 0/None = uit.
+        """
+        eigen = self.bron_conf.get("prijs_max")
+        if eigen is not None:
+            return int(eigen) or None
+        grens = self.config.get("criteria", {}).get("huur_max_kaal")
+        return int(grens) if grens else None
+
     # ---- Te implementeren door subklassen ----
 
     def haal_op(self) -> List[Listing]:

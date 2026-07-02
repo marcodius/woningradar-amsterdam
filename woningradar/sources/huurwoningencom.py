@@ -42,11 +42,19 @@ class HuurwoningenComSource(BaseSource):
         resultaat: List[Listing] = []
         gezien: set = set()
         max_paginas = self.bron_conf.get("max_paginas", 2)
+        pmax = self.prijs_max()
         for stad in self._steden():
             for pagina in range(1, max_paginas + 1):
-                url = f"{self.basis_url}/in/{stad}/"
+                # Prijsband in de URL (geverifieerd werkend) concentreert het
+                # paginabudget op betaalbare woningen i.p.v. dure appartementen.
+                params = []
+                if pmax:
+                    params.append(f"price=0-{pmax}")
                 if pagina > 1:
-                    url += f"?page={pagina}"
+                    params.append(f"page={pagina}")
+                url = f"{self.basis_url}/in/{stad}/"
+                if params:
+                    url += "?" + "&".join(params)
                 try:
                     resp = self.get(url)
                 except requests.HTTPError as exc:

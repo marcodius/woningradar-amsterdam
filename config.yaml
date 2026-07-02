@@ -25,6 +25,12 @@ criteria:
     - Zaandam
     - Amsterdam-Duivendrecht
 
+  # Sociale/gereguleerde huur herkennen (niet afwijzen, wel labelen).
+  # Amsterdamse vrije sector ligt rond 25-35 euro/m2/maand; hieronder is een
+  # sterk signaal dat het corporatie-/sociale huur is (inschrijving + inkomen).
+  sociale_huur_prijs_per_m2: 18   # euro/m2/maand; daaronder = vermoedelijk gereguleerd
+  sociale_huur_kale_huur: 700     # fallback als oppervlak onbekend is
+
   # Buurten/wijken die als "goed OV-ontsloten" tellen (voor bonuspunten).
   ov_knooppunten_trefwoorden:
     - station
@@ -77,6 +83,7 @@ scoring:
     twijfel_vrije_sector: 1
     hoge_inkomenseis: 1         # inkomenseis boven factor * huur
     inkomenseis_factor: 4.0     # veel verhuurders vragen 3-3,5x; >4x is streng
+    mogelijk_sociale_huur: 1    # vermoedelijk gereguleerd (zie criteria-drempels)
 
   # Indeling op basis van eindscore (1-10)
   indeling:
@@ -108,7 +115,7 @@ bronnen:
     max_paginas: 2
   ikwilhuren:
     ingeschakeld: true           # corporaties/institutionele verhuurders; landelijk,
-    max_paginas: 6               # geen werkend stadsfilter -> zelf op regio filteren
+    max_paginas: 10              # geen werkend stadsfilter -> zelf op regio filteren
     plaatsen:                    # (10 kaarten per pagina, nieuwste eerst)
       - amsterdam
       - amstelveen
@@ -117,18 +124,20 @@ bronnen:
       - zaandam
   huurwoningencom:
     ingeschakeld: true           # zelfde aanbod-familie als huurwoningen.nl, maar de
-    max_paginas: 2               # .com heeft geen Cloudflare-challenge (30 p.p.)
+    max_paginas: 5               # .com heeft geen Cloudflare-challenge (30 p.p.)
+    prijs_max: 1650              # prijs-band in URL werkt: haalt alleen betaalbare op
   huurstunt:
     ingeschakeld: true           # aggregator, server-gerenderd
-    max_paginas: 2
+    max_paginas: 3               # prijs-band-URL werkt hier NIET -> meer pagina's
   rentola:
     ingeschakeld: true           # aggregator; stadsfilter zit in het pad /huren/<stad>
-    max_paginas: 2
+    max_paginas: 4
+    prijs_max: 1650              # rent_max in URL werkt grotendeels
     steden:
       - amsterdam
   directwonen:
     ingeschakeld: true           # verhuurplatform, server-gerenderd
-    max_paginas: 2
+    max_paginas: 3
   interhouse:
     ingeschakeld: true           # verhuurmakelaar; via publieke WordPress REST API,
     max_paginas: 2               # kost 1 extra request per woning (detailverrijking)

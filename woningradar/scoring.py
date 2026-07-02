@@ -156,6 +156,17 @@ def score_listing(listing: Listing, config: Dict[str, Any]) -> Listing:
     if not (listing.plaats or listing.buurt or listing.adres):
         waarschuwingen.append("Locatie onbekend, controleer bij de bron")
 
+    # Vermoedelijk sociale/gereguleerde huur: opvallend lage prijs per m² (of
+    # absoluut lage huur). Niet afwijzen, wel labelen — zulke woningen vergen
+    # meestal inschrijving (WoningNet) en een inkomenstoets.
+    if _mogelijk_gereguleerd(listing, config):
+        listing.mogelijk_gereguleerd = True
+        punten -= st.get("mogelijk_sociale_huur", 1)
+        waarschuwingen.append(
+            "Mogelijk sociale/gereguleerde huur (lage prijs per m²) — "
+            "vaak inschrijving en inkomenseis"
+        )
+
     # Schaal naar 1-10
     score = max(1.0, min(10.0, punten))
     listing.score = round(score, 1)
@@ -165,6 +176,23 @@ def score_listing(listing: Listing, config: Dict[str, Any]) -> Listing:
     # Indeling
     listing.indeling = _indeling(listing, config)
     return listing
+
+
+def _mogelijk_gereguleerd(listing: Listing, config: Dict[str, Any]) -> bool:
+    """Heuristiek voor sociale/gereguleerde huur op basis van prijsniveau.
+
+    Amsterdamse vrije-sector huur ligt rond €25-35/m²/maand; sociale en
+    corporatiehuur rond €10-15/m². Een lage prijs per m² (of een absoluut lage
+    kale huur als het oppervlak ontbreekt) is dus een sterk signaal.
+    """
+    if listing.type != "huur" or not listing.prijs:
+        return False
+    c = config.get("criteria", {})
+    per_m2_drempel = c.get("sociale_huur_prijs_per_m2", 18)
+    huur_drempel = c.get("sociale_huur_kale_huur", 700)
+    if listing.oppervlak_m2 and listing.oppervlak_m2 > 0:
+        return (listing.prijs / listing.oppervlak_m2) < per_m2_drempel
+    return listing.prijs < huur_drempel
 
 
 def _budget_marge(listing: Listing, config: Dict[str, Any]) -> float | None:

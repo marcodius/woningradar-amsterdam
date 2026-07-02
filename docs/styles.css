@@ -77,6 +77,23 @@ body {
   font-size: 0.85rem; color: var(--ink);
 }
 
+.control.prijs .prijs-velden { display: flex; align-items: center; gap: 6px; }
+.control.prijs input[type="number"] {
+  width: 72px; padding: 7px 8px;
+  border: 1px solid var(--line); border-radius: 8px;
+  background: #fff; font-size: 0.9rem;
+}
+.control.prijs .prijs-snel { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.control.prijs .prijs-snel button {
+  padding: 3px 9px; border: 1px solid var(--line); border-radius: 999px;
+  background: #fff; color: var(--ink); font-size: 0.78rem; cursor: pointer;
+}
+.control.prijs .prijs-snel button:hover { border-color: #94a3b8; }
+.control.prijs .prijs-snel button.actief {
+  background: #2563eb; border-color: #2563eb; color: #fff;
+}
+.control.prijs .prijs-snel button[data-wis] { color: var(--muted); }
+
 .kaart-wrap { margin: 8px auto 18px; }
 #kaart {
   height: 380px;
@@ -152,6 +169,7 @@ body {
 }
 .pill-tag.huur { background: #dbeafe; color: #1e40af; }
 .pill-tag.koop { background: #f3e8ff; color: #6b21a8; }
+.pill-tag.gereguleerd { background: #fef3c7; color: #92400e; cursor: help; }
 
 .kenmerken { display: flex; flex-wrap: wrap; gap: 10px; margin: 8px 0; font-size: 0.85rem; color: var(--muted); }
 .kenmerken span::before { content: "• "; color: var(--line); }
