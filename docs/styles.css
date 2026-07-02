@@ -8,6 +8,8 @@
   --laag: #d97706;
   --afg: #94a3b8;
   --accent: #2563eb;
+  --huur: #2563eb;   /* huur = blauw */
+  --koop: #9333ea;   /* koop = paars */
   --shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
 }
 
@@ -89,6 +91,16 @@ body {
   display: inline-block; color: #fff; border-radius: 6px;
   padding: 0 6px; font-weight: 700; margin-right: 4px;
 }
+.kaart-popup .popup-foto {
+  width: 100%; height: 90px; object-fit: cover;
+  border-radius: 6px; margin-bottom: 6px; display: block;
+}
+.kaart-legenda {
+  display: flex; gap: 16px; flex-wrap: wrap;
+  font-size: 0.8rem; color: var(--muted); margin: 8px 2px 0;
+}
+.kaart-legenda span { display: inline-flex; align-items: center; gap: 5px; }
+.kaart-legenda i { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
 
 .lijst { display: grid; gap: 14px; padding-bottom: 40px; }
 
@@ -111,10 +123,12 @@ body {
   align-items: start;
   border-left: 4px solid var(--line);
 }
-.kaart.topmatch { border-left-color: var(--top); }
-.kaart.lage_match { border-left-color: var(--laag); }
-.kaart.afgewezen { border-left-color: var(--afg); opacity: 0.85; }
+/* Randkleur per type: huur = blauw, koop = paars. De score/indeling zit in het badge. */
+.kaart.type-huur { border-left-color: var(--huur); }
+.kaart.type-koop { border-left-color: var(--koop); }
+.kaart.afgewezen { opacity: 0.8; }
 .kaart.verborgen { display: none; }
+.kaart.gemarkeerd { box-shadow: 0 0 0 3px var(--accent); }
 
 .score-badge {
   width: 56px; height: 56px;
@@ -136,7 +150,8 @@ body {
   display: inline-block; font-size: 0.72rem; padding: 1px 8px;
   border-radius: 999px; background: #eef2ff; color: #3730a3; margin-left: 6px;
 }
-.pill-tag.koop { background: #ecfdf5; color: #065f46; }
+.pill-tag.huur { background: #dbeafe; color: #1e40af; }
+.pill-tag.koop { background: #f3e8ff; color: #6b21a8; }
 
 .kenmerken { display: flex; flex-wrap: wrap; gap: 10px; margin: 8px 0; font-size: 0.85rem; color: var(--muted); }
 .kenmerken span::before { content: "• "; color: var(--line); }

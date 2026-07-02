@@ -54,11 +54,10 @@ def main() -> None:
     # Scoren en indelen.
     gescoord = score_alles(uniek, config)
 
-    # Geocoderen (lat/lon voor de kaart) via PDOK. Alleen niet-afgewezen
-    # woningen, om het aantal verzoeken te beperken.
-    te_geocoderen = [l for l in gescoord if l.indeling != "afgewezen"]
-    print(f"Geocoderen van {len(te_geocoderen)} woningen via PDOK...")
-    geocode_listings(te_geocoderen)
+    # Geocoderen (lat/lon voor de kaart) via PDOK. Alle woningen met een
+    # locatie, zodat ook afgewezen-maar-echte woningen op de kaart verschijnen.
+    print(f"Geocoderen van {len(gescoord)} woningen via PDOK...")
+    geocode_listings(gescoord)
 
     # Sorteren: eerst topmatches, dan op score aflopend.
     volgorde = {"topmatch": 0, "lage_match": 1, "afgewezen": 2}

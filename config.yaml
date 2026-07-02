@@ -88,14 +88,15 @@ scoring:
 # ---------------------------------------------------------------------------
 bronnen:
   demo:
-    ingeschakeld: true          # voorbeelddata; zet op false zodra echte bronnen leveren
+    ingeschakeld: false         # voorbeelddata uit: we tonen nu echte woningen
   nederwoon:
     ingeschakeld: true          # server-gerenderd, blokkeert CI-IP's niet -> echte data
-    max_paginas: 2
+    max_paginas: 3
     steden:                     # NederWoon toont per stad ook de directe omgeving
       - amsterdam
       - amstelveen
       - diemen
+      - zaandam
   huurwoningen:
     ingeschakeld: true
     max_paginas: 2

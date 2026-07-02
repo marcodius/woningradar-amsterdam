@@ -55,7 +55,9 @@ function initKaart() {
   markerLaag = L.layerGroup().addTo(kaart);
 }
 
-const KLEUR = { topmatch: "#16a34a", lage_match: "#d97706", afgewezen: "#94a3b8" };
+// Kleur per TYPE: huur = blauw, koop = paars.
+const TYPE_KLEUR = { huur: "#2563eb", koop: "#9333ea" };
+const INDELING_KLEUR = { topmatch: "#16a34a", lage_match: "#d97706", afgewezen: "#94a3b8" };
 
 function updateKaart(items) {
   if (!markerLaag) return;
@@ -63,24 +65,56 @@ function updateKaart(items) {
   const punten = [];
   for (const w of items) {
     if (w.lat == null || w.lon == null) continue;
-    const kleur = KLEUR[w.indeling] || "#2563eb";
+    const kleur = TYPE_KLEUR[w.type] || "#2563eb";
+    // Topmatches groter en met dikkere rand, zodat ze opvallen.
+    const isTop = w.indeling === "topmatch";
     const marker = L.circleMarker([w.lat, w.lon], {
-      radius: 9, color: "#fff", weight: 2, fillColor: kleur, fillOpacity: 0.95,
+      radius: isTop ? 12 : 9,
+      color: isTop ? "#111827" : "#fff",
+      weight: isTop ? 3 : 2,
+      fillColor: kleur,
+      fillOpacity: 0.95,
     });
     const prijs = w.type === "koop"
-      ? `${euro(w.prijs)} k.k.` : `${euro(w.prijs)}/mnd`;
+      ? `${euro(w.prijs)} k.k.${w.maandlast_koop ? ` (~${euro(w.maandlast_koop)}/mnd)` : ""}`
+      : `${euro(w.prijs)}/mnd`;
+    const foto = w.afbeelding_url
+      ? `<img src="${esc(w.afbeelding_url)}" class="popup-foto" onerror="this.remove()">` : "";
     marker.bindPopup(
       `<div class="kaart-popup">` +
-      `<b><span class="pscore" style="background:${kleur}">${w.score ?? "?"}</span>${esc(w.titel)}</b>` +
+      foto +
+      `<b><span class="pscore" style="background:${INDELING_KLEUR[w.indeling] || kleur}">${w.score ?? "?"}</span>` +
+      `${esc(w.titel)}</b>` +
+      `<span class="pill-tag ${w.type}">${w.type}</span><br>` +
       `${prijs} · ${esc(w.buurt || "")}<br>` +
-      `<a href="${esc(w.url)}" target="_blank" rel="noopener">Bekijk advertentie</a></div>`
+      `<a href="${esc(w.url)}" target="_blank" rel="noopener">Bekijk advertentie ↗</a> · ` +
+      `<a href="#" data-scroll="${w.id}">naar kaartje</a></div>`,
+      { minWidth: 200 }
     );
     marker.addTo(markerLaag);
+    marker._woningId = w.id;
     punten.push([w.lat, w.lon]);
   }
   if (punten.length) {
     kaart.fitBounds(punten, { padding: [30, 30], maxZoom: 14 });
   }
+
+  // Klik in popup op "naar kaartje" -> scroll naar de woningkaart en markeer 'm.
+  kaart.off("popupopen").on("popupopen", (e) => {
+    const link = e.popup.getElement().querySelector("[data-scroll]");
+    if (link) link.addEventListener("click", (ev) => {
+      ev.preventDefault();
+      scrollNaarKaart(link.dataset.scroll);
+    });
+  });
+}
+
+function scrollNaarKaart(id) {
+  const el = document.querySelector(`article[data-id="${id}"]`);
+  if (!el) return;
+  el.scrollIntoView({ behavior: "smooth", block: "center" });
+  el.classList.add("gemarkeerd");
+  setTimeout(() => el.classList.remove("gemarkeerd"), 2000);
 }
 
 function vulKop() {
@@ -211,7 +245,7 @@ function kaartHtml(w) {
   const ookOp = (w.ook_op && w.ook_op.length) ? `<span class="pill-tag">ook op: ${w.ook_op.join(", ")}</span>` : "";
 
   return `
-  <article class="kaart ${w.indeling} ${isVerborgen ? "verborgen-flag" : ""}">
+  <article data-id="${w.id}" class="kaart ${w.indeling} type-${w.type} ${isVerborgen ? "verborgen-flag" : ""}">
     <div class="score-badge">${w.score ?? "?"}</div>
     ${fotoHtml(w)}
     <div class="body">
