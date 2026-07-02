@@ -1,5 +1,10 @@
 {
   "Weesperzijde 112-3 1091 EK Amsterdam": null,
   "Van Ostadestraat 44-2 1072 ST Amsterdam": null,
-  "Beukenhorst 12 1112 XX Diemen": null
+  "Beukenhorst 12 1112 XX Diemen": null,
+  "1113LC Diemen Diemen": {
+    "lat": 52.34868723,
+    "lon": 4.98350455,
+    "buurt": "Vlindertuin"
+  }
 }

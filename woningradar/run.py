@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import sys
 from datetime import datetime, timedelta, timezone
 
 from .config import DEFAULT_CONFIG_PATH, load_config
@@ -32,6 +33,16 @@ def _volgende_run(nu: datetime, interval_uren: int = 3) -> datetime:
     return basis.replace(hour=0) + timedelta(hours=volgende_uur)
 
 
+def controleer_opbrengst(aantal: int, status: dict) -> None:
+    """Faal de run bij 0 woningen: dan is er iets mis met de bronnen en mag
+    de bestaande listings.json niet worden overschreven met een lege site."""
+    if aantal == 0:
+        print("FOUT: geen enkele woning opgehaald; publicatie afgebroken.", file=sys.stderr)
+        for bron, st in status.items():
+            print(f"  - {bron}: {st}", file=sys.stderr)
+        raise SystemExit(1)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Woningradar scraper")
     parser.add_argument("--config", default=DEFAULT_CONFIG_PATH)
@@ -46,6 +57,8 @@ def main() -> None:
     print(f"Opgehaald: {len(ruwe)} woningen. Status per bron:")
     for bron, st in status.items():
         print(f"  - {bron}: {st}")
+
+    controleer_opbrengst(len(ruwe), status)
 
     # Ontdubbelen op adres/kenmerken.
     uniek = dedup(ruwe)

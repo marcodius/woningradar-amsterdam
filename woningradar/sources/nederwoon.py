@@ -17,6 +17,7 @@ import re
 from typing import List, Optional
 from urllib.parse import urljoin
 
+import requests
 from bs4 import BeautifulSoup
 
 from ..schema import Listing, parse_prijs
@@ -42,7 +43,15 @@ class NederwoonSource(BaseSource):
                 url = f"{self.basis_url}/huurwoningen/{stad}"
                 if pagina > 1:
                     url += f"?page={pagina}"
-                resp = self.get(url)
+                try:
+                    resp = self.get(url)
+                except requests.HTTPError as exc:
+                    # NederWoon geeft 404 op niet-bestaande pagina's (sinds de
+                    # sitewijziging ook op elke ?page=N). Dat is het einde van
+                    # deze stad, geen bronfout.
+                    if exc.response is not None and exc.response.status_code == 404:
+                        break
+                    raise
                 if resp is None:
                     break
                 woningen = self._parse_lijst(resp.text)

@@ -98,11 +98,11 @@ bronnen:
       - diemen
       - zaandam
   huurwoningen:
-    ingeschakeld: true
-    max_paginas: 2
+    ingeschakeld: false          # Cloudflare JS-challenge (403), ook vanaf woon-IP's;
+    max_paginas: 2               # niet passeerbaar met requests
   pararius:
-    ingeschakeld: true           # test: verbiedt scrapen, kan blokkeren
-    max_paginas: 2
+    ingeschakeld: false          # zelfde Cloudflare-challenge (zelfde moederbedrijf);
+    max_paginas: 2               # verbiedt bovendien scrapen
   funda:
     ingeschakeld: false          # verbiedt scrapen en blokkeert bots; standaard uit
     max_paginas: 2
