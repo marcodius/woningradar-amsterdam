@@ -2,56 +2,62 @@ name: Woningradar
 
 on:
   schedule:
-    - cron: "0 */3 * * *"     # elke 3 uur (UTC)
-  workflow_dispatch: {}         # handmatige trigger via de Actions-tab
+    - cron: "11 */3 * * *"     # elke 3 uur (UTC), op een off-peak minuut
+  workflow_dispatch: {}          # handmatige trigger via de Actions-tab
+  push:
+    branches: [main]             # publiceer ook meteen bij een wijziging
 
 permissions:
-  contents: write               # om listings.json te committen naar main
+  contents: read
+  pages: write
+  id-token: write
+
+env:
+  # Onderdrukt de Node 20-deprecation-waarschuwing op de runners.
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
 concurrency:
-  group: woningradar
+  group: "pages"
   cancel-in-progress: false
 
 jobs:
-  scrape:
+  build:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
-      - name: Checkout
+      - name: Code ophalen
         uses: actions/checkout@v4
 
-      - name: Python opzetten
+      - name: Python 3.12 instellen
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: "pip"
 
       - name: Dependencies installeren
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+        run: python -m pip install -r requirements.txt
 
-      # Optioneel: Playwright inschakelen voor JS-zware bronnen.
-      # - name: Playwright browser installeren
+      # Optioneel: browser voor JS-zware bronnen (Funda/Pararius via Playwright).
+      # - name: Browser installeren
       #   run: |
       #     pip install playwright
       #     python -m playwright install --with-deps chromium
 
-      - name: Scraper draaien
+      - name: Woningen ophalen, scoren en listings.json bouwen
         run: python -m woningradar.run --interval-uren 3
 
-      - name: listings.json committen
-        run: |
-          git config user.name "woningradar-bot"
-          git config user.email "actions@github.com"
-          git add docs/listings.json
-          if git diff --staged --quiet; then
-            echo "Geen wijzigingen."
-          else
-            git commit -m "Woningradar: listings bijgewerkt ($(date -u +%Y-%m-%dT%H:%MZ))"
-            git push
-          fi
+      - name: Pages-artefact uploaden
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
 
-# Publicatie: GitHub Pages serveert de map docs/ rechtstreeks vanaf de
-# main-branch. Zet dat eenmalig in: Settings -> Pages -> Source =
-# "Deploy from a branch" -> Branch: main -> map: /docs -> Save.
-# De scraper hierboven commit listings.json naar docs/, waarna Pages
-# de site automatisch opnieuw publiceert. Geen aparte deploy-job nodig.
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Naar GitHub Pages publiceren
+        id: deployment
+        uses: actions/deploy-pages@v4
