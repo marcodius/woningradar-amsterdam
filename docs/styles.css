@@ -1,0 +1,149 @@
+:root {
+  --bg: #f5f6f8;
+  --card: #ffffff;
+  --ink: #1c2430;
+  --muted: #64748b;
+  --line: #e2e8f0;
+  --top: #16a34a;
+  --laag: #d97706;
+  --afg: #94a3b8;
+  --accent: #2563eb;
+  --shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.5;
+}
+
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+.topbar {
+  background: linear-gradient(120deg, #1e3a8a, #2563eb);
+  color: #fff;
+  padding: 28px 0 22px;
+}
+.topbar h1 { margin: 0; font-size: 1.6rem; }
+.topbar .sub { margin: 4px 0 12px; opacity: 0.9; }
+.topbar .meta { display: flex; gap: 18px; font-size: 0.85rem; opacity: 0.9; flex-wrap: wrap; }
+
+.tellers {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: -18px auto 8px;
+}
+.teller {
+  background: var(--card);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  border-top: 3px solid var(--line);
+}
+.teller.top { border-top-color: var(--top); }
+.teller.laag { border-top-color: var(--laag); }
+.teller.afg { border-top-color: var(--afg); }
+.teller .getal { font-size: 1.6rem; font-weight: 700; }
+.teller .label { font-size: 0.8rem; color: var(--muted); }
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-end;
+  margin: 18px auto;
+}
+.control { display: flex; flex-direction: column; gap: 4px; }
+.control label { font-size: 0.78rem; color: var(--muted); }
+.control select {
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  font-size: 0.9rem;
+}
+.control.checks { flex-direction: row; flex-wrap: wrap; gap: 14px; }
+.control.checks label {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 0.85rem; color: var(--ink);
+}
+
+.lijst { display: grid; gap: 14px; padding-bottom: 40px; }
+
+.kaart {
+  background: var(--card);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 16px 18px;
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  gap: 16px;
+  align-items: start;
+  border-left: 4px solid var(--line);
+}
+.kaart.topmatch { border-left-color: var(--top); }
+.kaart.lage_match { border-left-color: var(--laag); }
+.kaart.afgewezen { border-left-color: var(--afg); opacity: 0.85; }
+.kaart.verborgen { display: none; }
+
+.score-badge {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 1.2rem; color: #fff;
+  background: var(--afg);
+}
+.topmatch .score-badge { background: var(--top); }
+.lage_match .score-badge { background: var(--laag); }
+
+.kaart h3 { margin: 0 0 2px; font-size: 1.05rem; }
+.kaart h3 a { color: var(--ink); text-decoration: none; }
+.kaart h3 a:hover { color: var(--accent); text-decoration: underline; }
+
+.prijs { font-weight: 600; }
+.locatie { color: var(--muted); font-size: 0.9rem; }
+.pill-tag {
+  display: inline-block; font-size: 0.72rem; padding: 1px 8px;
+  border-radius: 999px; background: #eef2ff; color: #3730a3; margin-left: 6px;
+}
+.pill-tag.koop { background: #ecfdf5; color: #065f46; }
+
+.kenmerken { display: flex; flex-wrap: wrap; gap: 10px; margin: 8px 0; font-size: 0.85rem; color: var(--muted); }
+.kenmerken span::before { content: "• "; color: var(--line); }
+.kenmerken span:first-child::before { content: ""; }
+
+.redenen { margin: 8px 0 0; padding: 0; list-style: none; font-size: 0.85rem; }
+.redenen li { padding-left: 18px; position: relative; }
+.redenen li::before { content: "✓"; position: absolute; left: 0; color: var(--top); }
+.waarschuwingen li::before { content: "!"; color: var(--laag); font-weight: 700; }
+.afwijs li::before { content: "✕"; color: #dc2626; }
+
+.acties { display: flex; flex-direction: column; gap: 8px; }
+.acties button {
+  border: 1px solid var(--line);
+  background: #fff;
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+.acties button:hover { border-color: var(--accent); color: var(--accent); }
+.acties button.actief { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+.maandlast-note { font-size: 0.78rem; color: var(--muted); margin-top: 6px; font-style: italic; }
+.leeg { text-align: center; color: var(--muted); padding: 40px 0; }
+.footer { color: var(--muted); font-size: 0.8rem; padding-bottom: 40px; }
+
+@media (max-width: 720px) {
+  .tellers { grid-template-columns: repeat(2, 1fr); }
+  .kaart { grid-template-columns: 48px 1fr; }
+  .acties { grid-column: 1 / -1; flex-direction: row; }
+}

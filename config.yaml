@@ -1,0 +1,110 @@
+# Woningradar configuratie voor Jennifer
+# Pas alles hier aan zonder de code in te duiken.
+
+kandidaat:
+  naam: Jennifer
+  stad: Amsterdam
+
+# ---------------------------------------------------------------------------
+# Harde eisen (woningen die hier niet aan voldoen worden AFGEWEZEN)
+# ---------------------------------------------------------------------------
+criteria:
+  huur_max_kaal: 1800          # euro per maand, kale huur
+  koop_maandlast_max: 1500     # euro per maand, incl. erfpacht
+  min_slaapkamers: 1           # geen studio zonder aparte slaapkamer
+  zelfstandig_verplicht: true  # geen kamer of gedeelde voorzieningen
+
+  # Locatie: woning wordt geaccepteerd als de buurt/plaats in deze lijst valt
+  # of binnen de toegestane omliggende plaatsen ligt.
+  toegestane_plaatsen:
+    - Amsterdam
+    - Amstelveen
+    - Diemen
+    - Duivendrecht
+    - Ouderkerk aan de Amstel
+    - Zaandam
+    - Amsterdam-Duivendrecht
+
+  # Buurten/wijken die als "goed OV-ontsloten" tellen (voor bonuspunten).
+  ov_knooppunten_trefwoorden:
+    - station
+    - metro
+    - Zuid
+    - Bijlmer
+    - Sloterdijk
+    - Amstel
+    - Lelylaan
+    - Muiderpoort
+    - RAI
+    - Centraal
+
+# ---------------------------------------------------------------------------
+# Koopberekening
+# ---------------------------------------------------------------------------
+hypotheek:
+  rente_jaarlijks: 0.041       # 4,1% (30 jaar vast, NHG, stand juli 2026)
+  looptijd_jaren: 30
+  # Aanname beschreven bij elke koopwoning in de frontend.
+  aanname_tekst: >-
+    Bruto maandlast op basis van een annuiteitenhypotheek over de volledige
+    vraagprijs, 4,1% rente (30 jaar vast, NHG, stand juli 2026), exclusief
+    kosten koper. Een eventuele erfpachtcanon is bij de maandlast opgeteld.
+
+# ---------------------------------------------------------------------------
+# Scoring: gewichten (punten). Aanpasbaar.
+# Basisscore = 5. Punten worden opgeteld/afgetrokken en geschaald naar 1-10.
+# ---------------------------------------------------------------------------
+scoring:
+  basis: 5
+
+  bonus:
+    ruim_binnen_budget: 2       # >= 15% onder de budgetgrens
+    licht_binnen_budget: 1      # 5-15% onder de budgetgrens
+    extra_slaapkamer: 1         # per slaapkamer boven de 1 (max 2 bonuspunten)
+    extra_slaapkamer_max: 2
+    buitenruimte: 1
+    parkeren: 1
+    nabij_ov: 1
+    groot_oppervlak: 1          # >= drempel hieronder
+    groot_oppervlak_drempel_m2: 70
+    gunstig_energielabel: 1     # label A/B/C
+
+  straf:
+    lopende_erfpachtcanon: 2
+    tijdelijk_contract: 2
+    hoge_servicekosten: 1       # servicekosten boven drempel
+    hoge_servicekosten_drempel: 150
+    twijfel_vrije_sector: 1
+    hoge_inkomenseis: 1         # inkomenseis boven factor * huur
+    inkomenseis_factor: 4.0     # veel verhuurders vragen 3-3,5x; >4x is streng
+
+  # Indeling op basis van eindscore (1-10)
+  indeling:
+    topmatch_min: 8
+    lage_match_min: 5           # 5-7 = lage match; onder afwijzing als filters ok
+
+# ---------------------------------------------------------------------------
+# Bronnen: zet op false om een bron uit te schakelen.
+# ---------------------------------------------------------------------------
+bronnen:
+  demo:
+    ingeschakeld: true
+  huurwoningen:
+    ingeschakeld: true
+    max_paginas: 2
+  pararius:
+    ingeschakeld: false          # verbiedt scrapen; standaard uit
+    max_paginas: 2
+  funda:
+    ingeschakeld: false          # verbiedt scrapen en blokkeert bots; standaard uit
+    max_paginas: 2
+
+# ---------------------------------------------------------------------------
+# Netwerk / nette omgang
+# ---------------------------------------------------------------------------
+netwerk:
+  user_agent: "Woningradar/1.0 (persoonlijk gebruik; contact: marius.snijder@gmail.com)"
+  request_delay_seconden: 2.5    # rate limiting tussen requests per bron
+  timeout_seconden: 20
+  respecteer_robots: true        # sla bron over als robots.txt het pad verbiedt
+  max_woningen_per_bron: 60

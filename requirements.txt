@@ -1,0 +1,6 @@
+requests>=2.31
+beautifulsoup4>=4.12
+PyYAML>=6.0
+# Optioneel, alleen nodig voor JavaScript-zware bronnen (Funda/Pararius):
+#   playwright>=1.44
+# Installeer daarna de browser met: python -m playwright install chromium

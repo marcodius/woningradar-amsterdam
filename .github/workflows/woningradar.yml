@@ -1,0 +1,73 @@
+name: Woningradar
+
+on:
+  schedule:
+    - cron: "0 */3 * * *"     # elke 3 uur (UTC)
+  workflow_dispatch: {}         # handmatige trigger via de Actions-tab
+
+permissions:
+  contents: write               # om listings.json te committen
+  pages: write
+  id-token: write
+
+concurrency:
+  group: woningradar
+  cancel-in-progress: false
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Python opzetten
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Dependencies installeren
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # Optioneel: Playwright inschakelen voor JS-zware bronnen.
+      # - name: Playwright browser installeren
+      #   run: |
+      #     pip install playwright
+      #     python -m playwright install --with-deps chromium
+
+      - name: Scraper draaien
+        run: python -m woningradar.run --interval-uren 3
+
+      - name: listings.json committen
+        run: |
+          git config user.name "woningradar-bot"
+          git config user.email "actions@github.com"
+          git add docs/listings.json
+          if git diff --staged --quiet; then
+            echo "Geen wijzigingen."
+          else
+            git commit -m "Woningradar: listings bijgewerkt ($(date -u +%Y-%m-%dT%H:%MZ))"
+            git push
+          fi
+
+  deploy:
+    needs: scrape
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (nieuwste commit)
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Pages configureren
+        uses: actions/configure-pages@v5
+
+      - name: docs/ uploaden
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+      - name: Deployen naar GitHub Pages
+        uses: actions/deploy-pages@v4

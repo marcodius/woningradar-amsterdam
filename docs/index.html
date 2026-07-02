@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Woningradar Amsterdam</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <h1>Woningradar Amsterdam</h1>
+      <p class="sub">Woningen voor Jennifer, gescoord op haar eisen.</p>
+      <div class="meta">
+        <span id="bijgewerkt">Bijgewerkt: —</span>
+        <span id="volgende">Volgende run: —</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="tellers wrap" id="tellers">
+    <div class="teller"><span class="getal" id="t-opgehaald">–</span><span class="label">opgehaald</span></div>
+    <div class="teller top"><span class="getal" id="t-top">–</span><span class="label">topmatches</span></div>
+    <div class="teller laag"><span class="getal" id="t-laag">–</span><span class="label">lage matches</span></div>
+    <div class="teller afg"><span class="getal" id="t-afg">–</span><span class="label">afgewezen</span></div>
+  </section>
+
+  <section class="controls wrap">
+    <div class="control">
+      <label for="sorteer">Sorteren</label>
+      <select id="sorteer">
+        <option value="score">Hoogste score</option>
+        <option value="nieuw">Nieuwste eerst</option>
+      </select>
+    </div>
+    <div class="control">
+      <label for="type">Type</label>
+      <select id="type">
+        <option value="alles">Huur en koop</option>
+        <option value="huur">Alleen huur</option>
+        <option value="koop">Alleen koop</option>
+      </select>
+    </div>
+    <div class="control">
+      <label for="buurt">Buurt</label>
+      <select id="buurt"><option value="alles">Alle buurten</option></select>
+    </div>
+    <div class="control checks">
+      <label><input type="checkbox" id="f-buiten"> Met buitenruimte</label>
+      <label><input type="checkbox" id="f-nieuw"> Alleen nieuw</label>
+      <label><input type="checkbox" id="f-bewaard"> Alleen bewaard</label>
+      <label><input type="checkbox" id="f-verborgen"> Toon verborgen</label>
+    </div>
+  </section>
+
+  <main id="lijst" class="lijst wrap"></main>
+
+  <footer class="wrap footer">
+    <p>Scores en indeling zijn indicatief. Controleer altijd de advertentie bij de bron.
+       Koop-maandlasten zijn schattingen op basis van de ingestelde hypotheekrente.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
