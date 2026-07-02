@@ -31,7 +31,10 @@ class BaseSource:
         self.session = requests.Session()
         self.session.headers.update({
             "User-Agent": net.get("user_agent", "Woningradar/1.0"),
-            "Accept-Language": "nl-NL,nl;q=0.9",
+            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+            "Accept-Language": "nl-NL,nl;q=0.9,en-US;q=0.8,en;q=0.7",
+            "Sec-Fetch-Dest": "document",
+            "Sec-Fetch-Mode": "navigate",
         })
         self._laatste_request = 0.0
         self._robots: Optional[robotparser.RobotFileParser] = None

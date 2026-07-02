@@ -103,8 +103,13 @@ bronnen:
 # Netwerk / nette omgang
 # ---------------------------------------------------------------------------
 netwerk:
-  user_agent: "Woningradar/1.0 (persoonlijk gebruik; contact: marius.snijder@gmail.com)"
+  # Realistische browser-user-agent (zoals de vacatureradar bij zijn headless
+  # browser gebruikt): sites als Huurwoningen blokkeren een 'bot'-UA sneller.
+  user_agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
   request_delay_seconden: 2.5    # rate limiting tussen requests per bron
   timeout_seconden: 20
-  respecteer_robots: true        # sla bron over als robots.txt het pad verbiedt
+  # Zelfde keuze als de vacatureradar (respect_robots_txt standaard UIT): we
+  # benaderen publiek toegankelijke pagina's voor persoonlijk gebruik. Zet op
+  # true als je robots.txt wél strikt wilt volgen.
+  respecteer_robots: false
   max_woningen_per_bron: 60
