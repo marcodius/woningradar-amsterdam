@@ -1,9 +1,9 @@
 {
-  "bijgewerkt": "2026-07-02T17:53+02:00",
-  "volgende_run": "2026-07-02T18:00+02:00",
+  "bijgewerkt": "2026-07-02T18:08+02:00",
+  "volgende_run": "2026-07-02T21:00+02:00",
   "bron_status": {
     "demo": "ok (8)",
-    "huurwoningen": "fout: HTTPSConnectionPool(host='www.huurwoningen.nl', port=443): Max retries exceeded with url: /in/amsterdam/?price=0-1800&page=1 (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel connection failed: 403 Forbidden')))"
+    "huurwoningen": "fout: robots.txt verbiedt https://www.huurwoningen.nl/in/amsterdam/?price=0-1800&page=1"
   },
   "tellers": {
     "opgehaald": 8,
