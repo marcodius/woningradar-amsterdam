@@ -14,6 +14,7 @@ from datetime import datetime, timedelta, timezone
 
 from .config import DEFAULT_CONFIG_PATH, load_config
 from .dedup import dedup
+from .geocode import geocode_listings
 from .scoring import score_alles
 from .sources import haal_alles_op
 
@@ -52,6 +53,12 @@ def main() -> None:
 
     # Scoren en indelen.
     gescoord = score_alles(uniek, config)
+
+    # Geocoderen (lat/lon voor de kaart) via PDOK. Alleen niet-afgewezen
+    # woningen, om het aantal verzoeken te beperken.
+    te_geocoderen = [l for l in gescoord if l.indeling != "afgewezen"]
+    print(f"Geocoderen van {len(te_geocoderen)} woningen via PDOK...")
+    geocode_listings(te_geocoderen)
 
     # Sorteren: eerst topmatches, dan op score aflopend.
     volgorde = {"topmatch": 0, "lage_match": 1, "afgewezen": 2}

@@ -57,6 +57,7 @@ class DemoSource(BaseSource):
             tijdelijk_contract=bool(r.get("tijdelijk_contract", False)),
             gedeelde_voorzieningen=bool(r.get("gedeelde_voorzieningen", False)),
             vrije_sector_bevestigd=r.get("vrije_sector"),
+            afbeelding_url=r.get("afbeelding_url"),
             bron=self.naam,
             url=r.get("url", ""),
             datum_geplaatst=r.get("datum_geplaatst"),

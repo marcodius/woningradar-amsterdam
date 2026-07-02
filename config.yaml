@@ -93,7 +93,7 @@ bronnen:
     ingeschakeld: true
     max_paginas: 2
   pararius:
-    ingeschakeld: false          # verbiedt scrapen; standaard uit
+    ingeschakeld: true           # test: verbiedt scrapen, kan blokkeren
     max_paginas: 2
   funda:
     ingeschakeld: false          # verbiedt scrapen en blokkeert bots; standaard uit

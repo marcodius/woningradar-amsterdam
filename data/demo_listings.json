@@ -15,6 +15,7 @@
     "vrije_sector": true,
     "tijdelijk_contract": false,
     "inkomenseis": 4950,
+    "afbeelding_url": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=500&q=80",
     "url": "https://voorbeeld.nl/woning/amstel-balkon",
     "datum_geplaatst": "2026-06-30"
   },
@@ -34,6 +35,7 @@
     "vrije_sector": true,
     "tijdelijk_contract": false,
     "inkomenseis": 5340,
+    "afbeelding_url": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=500&q=80",
     "url": "https://voorbeeld.nl/woning/pijp-dakterras",
     "datum_geplaatst": "2026-07-01"
   },
@@ -91,6 +93,7 @@
     "vrije_sector": true,
     "tijdelijk_contract": false,
     "inkomenseis": 4650,
+    "afbeelding_url": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=500&q=80",
     "url": "https://voorbeeld.nl/woning/diemen-tuin",
     "datum_geplaatst": "2026-06-29"
   },
@@ -108,6 +111,7 @@
     "postcode": "1097 BP",
     "buitenruimte_soort": "balkon",
     "erfpacht": "eeuwigdurend afgekocht",
+    "afbeelding_url": "https://images.unsplash.com/photo-1493809842364-78817add7ffb?w=500&q=80",
     "url": "https://voorbeeld.nl/woning/watergraafsmeer-koop",
     "datum_geplaatst": "2026-06-27"
   },

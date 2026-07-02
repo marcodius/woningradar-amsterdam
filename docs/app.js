@@ -39,7 +39,48 @@ async function init() {
   vulKop();
   vulBuurten();
   koppelControls();
+  initKaart();
   render();
+}
+
+let kaart = null;
+let markerLaag = null;
+
+function initKaart() {
+  kaart = L.map("kaart", { scrollWheelZoom: false }).setView([52.365, 4.9], 12);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 19,
+    attribution: "&copy; OpenStreetMap",
+  }).addTo(kaart);
+  markerLaag = L.layerGroup().addTo(kaart);
+}
+
+const KLEUR = { topmatch: "#16a34a", lage_match: "#d97706", afgewezen: "#94a3b8" };
+
+function updateKaart(items) {
+  if (!markerLaag) return;
+  markerLaag.clearLayers();
+  const punten = [];
+  for (const w of items) {
+    if (w.lat == null || w.lon == null) continue;
+    const kleur = KLEUR[w.indeling] || "#2563eb";
+    const marker = L.circleMarker([w.lat, w.lon], {
+      radius: 9, color: "#fff", weight: 2, fillColor: kleur, fillOpacity: 0.95,
+    });
+    const prijs = w.type === "koop"
+      ? `${euro(w.prijs)} k.k.` : `${euro(w.prijs)}/mnd`;
+    marker.bindPopup(
+      `<div class="kaart-popup">` +
+      `<b><span class="pscore" style="background:${kleur}">${w.score ?? "?"}</span>${esc(w.titel)}</b>` +
+      `${prijs} · ${esc(w.buurt || "")}<br>` +
+      `<a href="${esc(w.url)}" target="_blank" rel="noopener">Bekijk advertentie</a></div>`
+    );
+    marker.addTo(markerLaag);
+    punten.push([w.lat, w.lon]);
+  }
+  if (punten.length) {
+    kaart.fitBounds(punten, { padding: [30, 30], maxZoom: 14 });
+  }
 }
 
 function vulKop() {
@@ -100,6 +141,8 @@ function render() {
     items.sort((a, b) => (rang[a.indeling] - rang[b.indeling]) || (b.score - a.score));
   }
 
+  updateKaart(items);
+
   const lijst = document.getElementById("lijst");
   lijst.innerHTML = items.length
     ? items.map(kaartHtml).join("")
@@ -115,6 +158,35 @@ function toggle(id, set, key) {
   if (set.has(id)) set.delete(id); else set.add(id);
   bewaarSet(key, set);
   render();
+}
+
+function fotoHtml(w) {
+  // Echte foto indien beschikbaar; anders een statisch kaartbeeld van de
+  // locatie; anders een neutrale placeholder. onerror degradeert netjes.
+  if (w.afbeelding_url) {
+    return `<img class="kaart-foto" loading="lazy" src="${esc(w.afbeelding_url)}" alt=""
+      onerror="this.onerror=null;this.src='${statischeKaart(w)}'">`;
+  }
+  const sm = statischeKaart(w);
+  if (sm) {
+    return `<img class="kaart-foto fallback" loading="lazy" src="${sm}" alt="kaart"
+      onerror="this.style.visibility='hidden'">`;
+  }
+  return `<div class="kaart-foto" aria-hidden="true"></div>`;
+}
+
+function statischeKaart(w) {
+  if (w.lat == null || w.lon == null) return "";
+  return `https://staticmap.openstreetmap.de/staticmap.php?center=${w.lat},${w.lon}` +
+    `&zoom=15&size=240x180&markers=${w.lat},${w.lon},red-pushpin`;
+}
+
+function mapsLink(w) {
+  if (w.lat != null && w.lon != null) {
+    return `https://www.google.com/maps/search/?api=1&query=${w.lat},${w.lon}`;
+  }
+  const q = encodeURIComponent([w.adres, w.buurt, w.plaats].filter(Boolean).join(", "));
+  return `https://www.google.com/maps/search/?api=1&query=${q}`;
 }
 
 function kaartHtml(w) {
@@ -141,6 +213,7 @@ function kaartHtml(w) {
   return `
   <article class="kaart ${w.indeling} ${isVerborgen ? "verborgen-flag" : ""}">
     <div class="score-badge">${w.score ?? "?"}</div>
+    ${fotoHtml(w)}
     <div class="body">
       <h3><a href="${esc(w.url)}" target="_blank" rel="noopener">${esc(w.titel)}</a>
         <span class="pill-tag ${w.type}">${w.type}</span>${nieuwTag}${ookOp}
@@ -156,6 +229,7 @@ function kaartHtml(w) {
     <div class="acties">
       <button data-bewaar="${w.id}" class="${isBewaard ? "actief" : ""}">${isBewaard ? "★ Bewaard" : "☆ Bewaar"}</button>
       <button data-verberg="${w.id}" class="${isVerborgen ? "actief" : ""}">${isVerborgen ? "Verborgen" : "Verberg"}</button>
+      <a class="maps-link" href="${mapsLink(w)}" target="_blank" rel="noopener">📍 Google Maps</a>
     </div>
   </article>`;
 }

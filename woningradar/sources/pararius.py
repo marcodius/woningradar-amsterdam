@@ -91,6 +91,15 @@ class ParariusSource(BaseSource):
             aantal = int(sk.group(1))
             slaapkamers = aantal - 1 if "slaapkamer" not in sk.group(2).lower() else aantal
 
+        img = kaart.select_one("img")
+        afbeelding = None
+        if img:
+            for attr in ("src", "data-src", "data-lazy"):
+                waarde = img.get(attr)
+                if waarde and waarde.startswith("http"):
+                    afbeelding = waarde
+                    break
+
         return Listing(
             titel=titel,
             type="huur",
@@ -104,6 +113,7 @@ class ParariusSource(BaseSource):
             plaats="Amsterdam",
             postcode=postcode,
             vrije_sector_bevestigd=None,
+            afbeelding_url=afbeelding,
             bron=self.naam,
             url=url,
         )

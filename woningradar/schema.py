@@ -31,6 +31,9 @@ class Listing:
     tijdelijk_contract: bool = False
     gedeelde_voorzieningen: bool = False
     vrije_sector_bevestigd: Optional[bool] = None   # None = onbekend/twijfel
+    afbeelding_url: Optional[str] = None    # foto uit de bron, indien beschikbaar
+    lat: Optional[float] = None             # breedtegraad (geocoding)
+    lon: Optional[float] = None             # lengtegraad (geocoding)
     bron: str = ""
     url: str = ""
     datum_geplaatst: Optional[str] = None   # ISO-datum indien bekend

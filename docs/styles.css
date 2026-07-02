@@ -75,7 +75,30 @@ body {
   font-size: 0.85rem; color: var(--ink);
 }
 
+.kaart-wrap { margin: 8px auto 18px; }
+#kaart {
+  height: 380px;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  z-index: 0;
+}
+.kaart-popup { font-size: 0.85rem; line-height: 1.4; }
+.kaart-popup b { display: block; margin-bottom: 2px; }
+.kaart-popup a { color: var(--accent); text-decoration: none; }
+.kaart-popup .pscore {
+  display: inline-block; color: #fff; border-radius: 6px;
+  padding: 0 6px; font-weight: 700; margin-right: 4px;
+}
+
 .lijst { display: grid; gap: 14px; padding-bottom: 40px; }
+
+.kaart-foto {
+  width: 120px; height: 90px;
+  border-radius: 8px; object-fit: cover;
+  background: #eef2f7;
+  grid-row: span 2;
+}
+.kaart-foto.fallback { object-fit: cover; }
 
 .kaart {
   background: var(--card);
@@ -83,7 +106,7 @@ body {
   box-shadow: var(--shadow);
   padding: 16px 18px;
   display: grid;
-  grid-template-columns: 64px 1fr auto;
+  grid-template-columns: 56px 120px 1fr auto;
   gap: 16px;
   align-items: start;
   border-left: 4px solid var(--line);
@@ -136,6 +159,12 @@ body {
   white-space: nowrap;
 }
 .acties button:hover { border-color: var(--accent); color: var(--accent); }
+.acties .maps-link {
+  border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px;
+  font-size: 0.82rem; text-align: center; text-decoration: none; color: var(--ink);
+  white-space: nowrap;
+}
+.acties .maps-link:hover { border-color: var(--accent); color: var(--accent); }
 .acties button.actief { background: var(--accent); color: #fff; border-color: var(--accent); }
 
 .maandlast-note { font-size: 0.78rem; color: var(--muted); margin-top: 6px; font-style: italic; }
@@ -145,5 +174,7 @@ body {
 @media (max-width: 720px) {
   .tellers { grid-template-columns: repeat(2, 1fr); }
   .kaart { grid-template-columns: 48px 1fr; }
+  .kaart-foto { grid-row: span 1; grid-column: 1 / -1; width: 100%; height: 160px; }
   .acties { grid-column: 1 / -1; flex-direction: row; }
+  #kaart { height: 300px; }
 }

@@ -91,6 +91,7 @@ class HuurwoningenSource(BaseSource):
         oppervlak = self._zoek_oppervlak(kenmerk_tekst)
         slaapkamers = self._zoek_slaapkamers(kenmerk_tekst)
         buiten, soort = detecteer_buitenruimte(kenmerk_tekst)
+        afbeelding = self._zoek_afbeelding(kaart)
 
         return Listing(
             titel=titel,
@@ -105,9 +106,27 @@ class HuurwoningenSource(BaseSource):
             plaats="Amsterdam",
             postcode=postcode,
             vrije_sector_bevestigd=None,   # onbekend vanaf de lijstpagina
+            afbeelding_url=afbeelding,
             bron=self.naam,
             url=url,
         )
+
+    @staticmethod
+    def _zoek_afbeelding(kaart) -> str | None:
+        img = kaart.select_one("img")
+        if not img:
+            return None
+        # Lazy-loaded afbeeldingen staan vaak in data-src / srcset.
+        for attr in ("src", "data-src", "data-lazy", "data-original"):
+            waarde = img.get(attr)
+            if waarde and waarde.startswith("http"):
+                return waarde
+        srcset = img.get("srcset") or img.get("data-srcset")
+        if srcset:
+            eerste = srcset.split(",")[0].strip().split(" ")[0]
+            if eerste.startswith("http"):
+                return eerste
+        return None
 
     @staticmethod
     def _parse_locatie(tekst: str):
