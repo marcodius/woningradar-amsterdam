@@ -6,9 +6,7 @@ on:
   workflow_dispatch: {}         # handmatige trigger via de Actions-tab
 
 permissions:
-  contents: write               # om listings.json te committen
-  pages: write
-  id-token: write
+  contents: write               # om listings.json te committen naar main
 
 concurrency:
   group: woningradar
@@ -52,22 +50,8 @@ jobs:
             git push
           fi
 
-  deploy:
-    needs: scrape
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout (nieuwste commit)
-        uses: actions/checkout@v4
-        with:
-          ref: ${{ github.ref }}
-
-      - name: Pages configureren
-        uses: actions/configure-pages@v5
-
-      - name: docs/ uploaden
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: docs
-
-      - name: Deployen naar GitHub Pages
-        uses: actions/deploy-pages@v4
+# Publicatie: GitHub Pages serveert de map docs/ rechtstreeks vanaf de
+# main-branch. Zet dat eenmalig in: Settings -> Pages -> Source =
+# "Deploy from a branch" -> Branch: main -> map: /docs -> Save.
+# De scraper hierboven commit listings.json naar docs/, waarna Pages
+# de site automatisch opnieuw publiceert. Geen aparte deploy-job nodig.
