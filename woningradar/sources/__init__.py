@@ -8,11 +8,13 @@ from .base import BaseSource
 from .demo import DemoSource
 from .funda import FundaSource
 from .huurwoningen import HuurwoningenSource
+from .nederwoon import NederwoonSource
 from .pararius import ParariusSource
 
 # Configsleutel -> klasse
 REGISTER: Dict[str, type[BaseSource]] = {
     "demo": DemoSource,
+    "nederwoon": NederwoonSource,
     "huurwoningen": HuurwoningenSource,
     "pararius": ParariusSource,
     "funda": FundaSource,
