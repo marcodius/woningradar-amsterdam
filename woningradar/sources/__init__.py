@@ -6,10 +6,20 @@ from typing import Any, Dict, List
 from ..schema import Listing
 from .base import BaseSource
 from .demo import DemoSource
+from .directwonen import DirectwonenSource
 from .funda import FundaSource
+from .huurstunt import HuurstuntSource
 from .huurwoningen import HuurwoningenSource
+from .huurwoningencom import HuurwoningenComSource
+from .ikwilhuren import IkwilhurenSource
+from .interhouse import InterhouseSource
+from .kamernet import KamernetSource
+from .maxxhuren import MaxxhurenSource
 from .nederwoon import NederwoonSource
 from .pararius import ParariusSource
+from .rentola import RentolaSource
+from .vbo import VboSource
+from .vbt import VbtSource
 
 # Configsleutel -> klasse
 REGISTER: Dict[str, type[BaseSource]] = {
@@ -18,6 +28,16 @@ REGISTER: Dict[str, type[BaseSource]] = {
     "huurwoningen": HuurwoningenSource,
     "pararius": ParariusSource,
     "funda": FundaSource,
+    "ikwilhuren": IkwilhurenSource,
+    "huurwoningencom": HuurwoningenComSource,
+    "huurstunt": HuurstuntSource,
+    "rentola": RentolaSource,
+    "directwonen": DirectwonenSource,
+    "interhouse": InterhouseSource,
+    "vbt": VbtSource,
+    "kamernet": KamernetSource,
+    "maxxhuren": MaxxhurenSource,
+    "vbo": VboSource,
 }
 
 

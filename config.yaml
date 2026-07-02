@@ -106,6 +106,50 @@ bronnen:
   funda:
     ingeschakeld: false          # verbiedt scrapen en blokkeert bots; standaard uit
     max_paginas: 2
+  ikwilhuren:
+    ingeschakeld: true           # corporaties/institutionele verhuurders; landelijk,
+    max_paginas: 6               # geen werkend stadsfilter -> zelf op regio filteren
+    plaatsen:                    # (10 kaarten per pagina, nieuwste eerst)
+      - amsterdam
+      - amstelveen
+      - diemen
+      - duivendrecht
+      - zaandam
+  huurwoningencom:
+    ingeschakeld: true           # zelfde aanbod-familie als huurwoningen.nl, maar de
+    max_paginas: 2               # .com heeft geen Cloudflare-challenge (30 p.p.)
+  huurstunt:
+    ingeschakeld: true           # aggregator, server-gerenderd
+    max_paginas: 2
+  rentola:
+    ingeschakeld: true           # aggregator; stadsfilter zit in het pad /huren/<stad>
+    max_paginas: 2
+    steden:
+      - amsterdam
+  directwonen:
+    ingeschakeld: true           # verhuurplatform, server-gerenderd
+    max_paginas: 2
+  interhouse:
+    ingeschakeld: true           # verhuurmakelaar; via publieke WordPress REST API,
+    max_paginas: 2               # kost 1 extra request per woning (detailverrijking)
+    steden:
+      - amsterdam
+      - amstelveen
+      - diemen
+      - duivendrecht
+      - badhoevedorp
+  vbt:
+    ingeschakeld: true           # vb&t, veel nieuwbouwverhuur; landelijk (12 p.p.),
+    max_paginas: 4               # geen server-side plaatsfilter -> scoring filtert
+  kamernet:
+    ingeschakeld: true           # ook zelfstandige appartementen/studio's; kamers
+    max_paginas: 3               # krijgen gedeelde_voorzieningen en vallen af
+  maxxhuren:
+    ingeschakeld: true           # landelijke verhuurder; alles op 1 pagina, regio-
+    max_paginas: 1               # aanbod wisselt (scoring filtert op plaats)
+  vbo:
+    ingeschakeld: true           # KOOP: aanbod van VBO-makelaars (vastgoednederland)
+    max_paginas: 2
 
 # ---------------------------------------------------------------------------
 # Netwerk / nette omgang

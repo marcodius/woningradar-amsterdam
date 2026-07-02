@@ -6,5 +6,305 @@
     "lat": 52.34868723,
     "lon": 4.98350455,
     "buurt": "Vlindertuin"
+  },
+  "Mahoniehout 45 1507ED Zaandam": {
+    "lat": 52.4420905,
+    "lon": 4.80927733,
+    "buurt": "Zaans Hout"
+  },
+  "Haringbuisdijk 663 1086VA Amsterdam": {
+    "lat": 52.36425062,
+    "lon": 4.98192825,
+    "buurt": null
+  },
+  "Pontsteiger 234 1014ZP Amsterdam": {
+    "lat": 52.39295675,
+    "lon": 4.8860354,
+    "buurt": "Houthavens-West"
+  },
+  "Solitudolaan 150 1096DS Amsterdam": {
+    "lat": 52.34138929,
+    "lon": 4.92101107,
+    "buurt": "Weespertrekvaart"
+  },
+  "Wichersstraat 51 1051ML Amsterdam": {
+    "lat": 52.37795213,
+    "lon": 4.87043892,
+    "buurt": "Buyskade e.o."
+  },
+  "Christiaan Huygenshof 135 1185XH Amstelveen": {
+    "lat": 52.28664192,
+    "lon": 4.85215888,
+    "buurt": "Startbaanbuurt"
+  },
+  "Asterweg 213 1031HM Amsterdam": {
+    "lat": 52.39379733,
+    "lon": 4.90188915,
+    "buurt": "Buiksloterham-Zuid"
+  },
+  "Parnassusweg 943 1082LZ Amsterdam": {
+    "lat": 52.33584823,
+    "lon": 4.86939318,
+    "buurt": "Zuidas-Zuid"
+  },
+  "Asterweg 255 1031HM Amsterdam": {
+    "lat": 52.39387459,
+    "lon": 4.90166037,
+    "buurt": "Buiksloterham-Zuid"
+  },
+  "Kraanspoor 3 C5 1033SC Amsterdam": {
+    "lat": 52.4054319,
+    "lon": 4.88955638,
+    "buurt": "NDSM terrein"
+  },
+  "Buikslotermeerplein 1842 1025XL Amsterdam": {
+    "lat": 52.40078807,
+    "lon": 4.93208049,
+    "buurt": "Loenermark"
+  },
+  "Olga De Haasstraat 513 1095PG Amsterdam": {
+    "lat": 52.37623609,
+    "lon": 4.96080229,
+    "buurt": "Sluisbuurt"
+  },
+  "Develstein 266 1102AK Amsterdam": {
+    "lat": 52.32219877,
+    "lon": 4.95759217,
+    "buurt": "D-buurt"
+  },
+  "1087 HW IJburg-Zuid Amsterdam": {
+    "lat": 52.35326513,
+    "lon": 5.00307568,
+    "buurt": "Havenkwartier IJburg"
+  },
+  "1025 WK Elzenhagen Amsterdam": {
+    "lat": 52.4001496,
+    "lon": 4.92615034,
+    "buurt": "Elzenhagen-Zuid"
+  },
+  "1057 CG Hoofdweg e.o. Amsterdam": {
+    "lat": 52.36455719,
+    "lon": 4.85343667,
+    "buurt": "Columbusplein e.o."
+  },
+  "1018 LG Oostelijke Eilanden/Kadijken Amsterdam": {
+    "lat": 52.3693032,
+    "lon": 4.91454889,
+    "buurt": "Kadijken"
+  },
+  "1072 EM Oude Pijp Amsterdam": {
+    "lat": 52.73276745,
+    "lon": 5.12496245,
+    "buurt": "Wervershoof Onderdijk Buitengebied"
+  },
+  "1014 BL Sloterdijk-West Amsterdam": {
+    "lat": 52.38545282,
+    "lon": 4.85231089,
+    "buurt": "Woon- en Groengebied Sloterdijk"
+  },
+  "1018 TB Weesperbuurt/Plantage Amsterdam": {
+    "lat": 52.36574342,
+    "lon": 4.91140536,
+    "buurt": "Plantage"
+  },
+  "1043 EG Sloterdijk Nieuw-West Amsterdam": {
+    "lat": 52.38646424,
+    "lon": 4.83758488,
+    "buurt": "Sloterdijk Stationskwartier"
+  },
+  "1051 KZ Staatsliedenbuurt Amsterdam": {
+    "lat": 52.3853088,
+    "lon": 4.87252027,
+    "buurt": "Fannius Scholtenbuurt"
+  },
+  "1017 EE Grachtengordel-Zuid Amsterdam": {
+    "lat": 52.36401055,
+    "lon": 4.90077981,
+    "buurt": "Amstelveldbuurt"
+  },
+  "1016 HW Jordaan Amsterdam": {
+    "lat": 52.3699911,
+    "lon": 4.88234511,
+    "buurt": "Elandsgrachtbuurt"
+  },
+  "1057 WK Hoofdweg e.o. Amsterdam": {
+    "lat": 52.36455719,
+    "lon": 4.85343667,
+    "buurt": "Columbusplein e.o."
+  },
+  "1054 CN Helmersbuurt Amsterdam": {
+    "lat": 52.36411739,
+    "lon": 4.87496836,
+    "buurt": "Helmersbuurt-Oost"
+  },
+  "1022 LA Elzenhagen Amsterdam": {
+    "lat": 52.40301743,
+    "lon": 4.9308087,
+    "buurt": "Elzenhagen-Noord"
+  },
+  "1018 PM Oostelijke Eilanden/Kadijken Amsterdam": {
+    "lat": 52.3693032,
+    "lon": 4.91454889,
+    "buurt": "Kadijken"
+  },
+  "1079 SK Rijnbuurt Amsterdam": {
+    "lat": 52.34092113,
+    "lon": 4.90026284,
+    "buurt": "Rijnbuurt-West"
+  },
+  "1019 MS Oostelijk Havengebied Amsterdam": {
+    "lat": 52.37130748,
+    "lon": 4.94400279,
+    "buurt": "Borneo"
+  },
+  "1103 TX Ganzenhoef e.o. Amsterdam": {
+    "lat": 52.32264247,
+    "lon": 4.9748068,
+    "buurt": "G-buurt-West"
+  },
+  "1060 RN De Aker Amsterdam": {
+    "lat": 52.493032,
+    "lon": 4.8076916,
+    "buurt": "Westeinde"
+  },
+  "1018 ZC Oostelijke Eilanden/Kadijken Amsterdam": {
+    "lat": 52.3693032,
+    "lon": 4.91454889,
+    "buurt": "Kadijken"
+  },
+  "1018 KZ Oostelijke Eilanden/Kadijken Amsterdam": {
+    "lat": 52.3693032,
+    "lon": 4.91454889,
+    "buurt": "Kadijken"
+  },
+  "1061 VT Overtoomse Veld Amsterdam": {
+    "lat": 52.36735884,
+    "lon": 4.84011822,
+    "buurt": "Overtoomse Veld-Noord"
+  },
+  "1061 VL Overtoomse Veld Amsterdam": {
+    "lat": 52.36799738,
+    "lon": 4.83881848,
+    "buurt": "Overtoomse Veld-Noord"
+  },
+  "1019 VK Oostelijk Havengebied Amsterdam": {
+    "lat": 52.36926724,
+    "lon": 4.94862231,
+    "buurt": "Cruquiusbuurt"
+  },
+  "1087 AV IJburg-West Amsterdam": {
+    "lat": 52.35904848,
+    "lon": 4.99415956,
+    "buurt": "Joris Ivenspleinbuurt"
+  },
+  "1017 XH De Weteringschans Amsterdam": {
+    "lat": 52.35952912,
+    "lon": 4.89511947,
+    "buurt": "Den Texbuurt"
+  },
+  "1101 CJ Amstel III/Bullewijk Amsterdam": {
+    "lat": 52.30500412,
+    "lon": 4.94319112,
+    "buurt": "Amstel III deel A/B-Noord"
+  },
+  "1091 AJ Oosterparkbuurt Amsterdam": {
+    "lat": 52.35760021,
+    "lon": 4.91356247,
+    "buurt": "Oosterparkbuurt-Noordwest"
+  },
+  "1062 AC Overtoomse Veld Amsterdam": {
+    "lat": 52.36354722,
+    "lon": 4.8401734,
+    "buurt": "Overtoomse Veld-Zuid"
+  },
+  "1083 GR Buitenveldert-Oost Amsterdam": {
+    "lat": 52.32521637,
+    "lon": 4.88499573,
+    "buurt": "Buitenveldert-Zuidoost"
+  },
+  "1077 RD Apollobuurt Amsterdam": {
+    "lat": 52.34959597,
+    "lon": 4.86941199,
+    "buurt": "Minervabuurt-Noord"
+  },
+  "1012 RV Burgwallen-Nieuwe Zijde Amsterdam": {
+    "lat": 52.36780338,
+    "lon": 4.8942631,
+    "buurt": "BG-terrein e.o."
+  },
+  "1087 BS IJburg-West Amsterdam": {
+    "lat": 52.35875304,
+    "lon": 4.98935355,
+    "buurt": "Joris Ivenspleinbuurt"
+  },
+  "1072 HL Oude Pijp Amsterdam": {
+    "lat": 52.73276745,
+    "lon": 5.12496245,
+    "buurt": "Wervershoof Onderdijk Buitengebied"
+  },
+  "1017 KJ De Weteringschans Amsterdam": {
+    "lat": 52.35962021,
+    "lon": 4.89322364,
+    "buurt": "Den Texbuurt"
+  },
+  "1019 BB Oostelijk Havengebied Amsterdam": {
+    "lat": 52.37482187,
+    "lon": 4.94888719,
+    "buurt": "Sporenburg"
+  },
+  "1095 MD Zeeburgereiland/Bovendiep Amsterdam": {
+    "lat": 52.3750879,
+    "lon": 4.96529059,
+    "buurt": "Sportheldenbuurt"
+  },
+  "1025 XM Buikslotermeer Amsterdam": {
+    "lat": 52.4020847,
+    "lon": 4.93206499,
+    "buurt": "Elzenhagen-Zuid"
+  },
+  "1087 GD IJburg-West Amsterdam": {
+    "lat": 52.35443631,
+    "lon": 4.994562,
+    "buurt": "Rieteilanden-West"
+  },
+  "1019 XX Oostelijk Havengebied Amsterdam": {
+    "lat": 52.3693995,
+    "lon": 4.95474532,
+    "buurt": "Cruquiusbuurt"
+  },
+  "1019 XZ Oostelijk Havengebied Amsterdam": {
+    "lat": 52.3699256,
+    "lon": 4.95473219,
+    "buurt": "Cruquiusbuurt"
+  },
+  "1075 AK Willemspark Amsterdam": {
+    "lat": 52.35396858,
+    "lon": 4.86026045,
+    "buurt": "Willemsparkbuurt-Noord"
+  },
+  "1108 GX Nellestein Amsterdam": {
+    "lat": 52.30825583,
+    "lon": 4.98606957,
+    "buurt": "L-buurt"
+  },
+  "1011 KR Nieuwmarkt/Lastage Amsterdam": {
+    "lat": 52.37269392,
+    "lon": 4.90108107,
+    "buurt": "Nieuwmarkt"
+  },
+  "1079 NG Rijnbuurt Amsterdam": {
+    "lat": 52.34187238,
+    "lon": 4.91149978,
+    "buurt": "Rijnbuurt-Oost"
+  },
+  "1107 RM Reigersbos Amsterdam": {
+    "lat": 52.29566814,
+    "lon": 4.97595881,
+    "buurt": "Reigersbos 2"
+  },
+  "1019 NB Oostelijk Havengebied Amsterdam": {
+    "lat": 52.377541,
+    "lon": 4.94777355,
+    "buurt": "KNSM-eiland"
   }
 }
